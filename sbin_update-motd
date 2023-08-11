@@ -68,5 +68,7 @@ if [ -d /etc/update-motd.d ]; then
     fi
     # mktemp creates files with only user read-write permissions
     chmod go+r $TMPFILE
-    mv $TMPFILE /var/lib/update-motd/motd
+
+    # Ensure the file inherits the selinux context of the destination dir
+    mv -Z $TMPFILE /var/lib/update-motd/motd
 fi
